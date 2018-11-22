@@ -1,0 +1,202 @@
+const _ = {
+  // Clamp Method
+  clamp (number, lower, upper){
+  	console.log(`number: ${number} lower: ${lower} upper: ${upper}`);	
+    // Clamp the number by the lower bound if number smaller
+    const lowerClampValue = Math.max(number,lower);
+    console.log(`This is the lowerClampValue ${lowerClampValue}`);
+    // Clamp the number by the upper bound if number larger
+   	const clampedValue = Math.min(lowerClampValue,upper);
+    console.log(`This is the clampedValue ${clampedValue}`);
+    return clampedValue;
+    	
+  },
+  // In Range Method
+  inRange (number, start, end){
+    console.log(`number: ${number} start: ${start} end: ${end}`);
+		// Check if end is undefined
+    if (typeof(end) === 'undefined'){
+      console.log("End is Undefined");
+      // set end to equal start
+      end = start;
+      console.log(`end is now equal to start value of ${start}`);
+      // set start to equal 0
+      start = 0;
+      console.log(`start set to ${start}`);
+    }
+    // Check if start is bigger than end
+    if (start > end){
+      // create temp variable set to end
+      const temp = end;
+      console.log(`temp set to " + ${temp}`);
+      // set end to start 0
+      end = start;
+      console.log(`end set to " + ${end}`);
+      // set start to equal temp
+      start = temp;  
+      console.log(`start set to " + ${start}`);
+    }
+    // create isInRange variable and set equal to boolean expression to check start is smaller than or equal to
+    // number and number smaller than end
+    const isInRange = (start <= number && number < end);
+    	// Should return true
+    	console.log(`Boolean value is ${isInRange}`);
+    	return isInRange;  
+  },
+  // Words method
+  words (string){
+    console.log(`This is the string ${string}`);
+    //create variable words and split on ' '
+    const words = string.split(' ');
+    console.log(words);
+    return words;  
+  },
+  
+  // Pad method
+  pad (string,length){
+    console.log(`string is ${string} , length is ${length}`);
+		// check if length is shorter than strings length
+    if (length <= string.length){
+      console.log(true);
+      return string;
+    }
+    // startPaddingLength set to difference of length and string / 2 rounded down
+    const startPaddingLength = Math.floor((length - string.length) / 2);
+    console.log(`startPaddingLength is ${startPaddingLength}`);
+		// endPaddingLength equal to length  	
+    const endPaddingLength = ((length - string.length) -startPaddingLength);
+    console.log(`endPaddingLength is ${endPaddingLength}`);
+ 		// paddedString set to space
+    let paddedString = ' ';
+    // set padded string equals space repeated startPaddingLength times concantenated with space repeated endPaddingLength times
+    paddedString = (paddedString.repeat(startPaddingLength)) + string + (paddedString.repeat(endPaddingLength)) ;
+    console.log(`paddedString | ${paddedString} |`);
+    return paddedString;
+    
+  },
+  // Has Method
+  has (object,key){
+    console.log(`object: ${object} key: ${key}`);
+    let hasValue = (object.hasOwnProperty(key));
+    if (typeof hasValue === 'undefined'){
+      return true;
+    }
+    else {
+      console.log(hasValue);
+      return hasValue;
+    }
+  },
+  
+  // Invert Method
+  invert (object){
+    console.log(object); 
+    // Create new inverted Object
+    let invertedObject = {};
+    //loop through each Key in the Object
+    for (let key in object) {
+      console.log(`key is: ${key}`);
+      //set the originalValue variable to the object property value
+      let originalValue = object[key];
+      console.log(`originalValue is ${object[key]}`);
+      // Invert the Object by adding the Property value then the Key
+      invertedObject = {originalValue:key};
+      console.log("This is the invertedObject");
+      console.log(invertedObject);
+}				
+   return invertedObject;
+    
+  },
+  
+  // Find Key Method
+  findKey (object, predicate){
+    // predicate function returns a true or false value
+    console.log("This is the object parameter");
+    console.log(object);
+    console.log("This is the predicate parameter");
+    console.log(predicate);
+    // for loop to iterate through each key in object
+    for (let key in object) {
+      //create variable value set current value at current key 
+      let value = object[key];
+      console.log("This is the object");
+      console.log(object);
+      console.log("This is the Value");
+      console.log(value);
+      // create predicateReturnValue set equal to result of calling predicate with value
+      let predicateReturnValue = predicate(value);
+      console.log("This is the predicateReturnValue");
+      console.log(predicateReturnValue);
+      if(predicateReturnValue){
+        // return key if truthy
+        console.log("This is the key " + key);
+        return key;
+      }    
+    } 
+   // Out side of loop return undefined 
+   return undefined;
+  },
+  
+  // Drop Method
+  drop (array, n){
+    console.log(array);
+    console.log(`N is currently ${n}`);
+    // check if n is undefined
+    if (typeof(n) === 'undefined'){
+      //set n to equal 1
+      n = 1;
+      console.log(`N was undefined now set to ${n}`);
+    }
+    // create droppeArray set value to copy of array missing the first n elements
+    let droppedArray = array.slice(n);
+    console.log(droppedArray);
+    return droppedArray;
+    
+  },
+  
+  //.dropWhile() creates a new copy of the supplied array, dropping elements from the beginning of the array until an element causes the predicate function to return a falsy value
+  dropWhile (array, predicate){
+    // Input Array
+    console.log("This is the array"); 
+    console.log(array);
+    // Predicate is a Function
+    console.log("This is the predicate Function");
+    console.log(predicate);   
+    //Iterate through the array checking if index is smaller than Element
+   	const dropNumber = array.findIndex(function(element,index){
+    console.log (`element is ${element}`);
+    console.log(`index is ${index}`);
+     //return if predicate returns Falsy when Index isn't smaller than Element
+     return !predicate(element,index,array);   
+   	});  
+   	console.log(`dropNumber is ${dropNumber}`); 	 
+   // Use the drop method already written to reduce the array The drop function takes two arguments an array and the number of items to drop from the array 
+  	droppedArray = this.drop(array,dropNumber);
+		return droppedArray;
+   
+  },
+  
+  chunk (array, size){
+    console.log("This is the array " + array);
+    console.log(`size: ${size}`);  
+   // Check if size is undefined if so set to 1
+    if (typeof(size) === 'undefined'){
+      size = 1;
+      console.log(`size undefined settting to ${size}`);
+    };
+    const arrayChunks = [];
+    // loop through array and increment by size
+		for (let k = 0; k < array.length; k += size){
+      console.log(k);
+      // slice arrayChunks at start of k and end of k + size
+      let arrayChunk = array.slice(k, k + size);
+      console.log(arrayChunk);
+      // Add Chunk to arrayChunks using push
+      arrayChunks.push(arrayChunk); 
+      console.log(arrayChunks);
+    }
+    return arrayChunks;  
+  }, 
+};
+
+// Do not write or modify code below this line.
+module.exports = _;
